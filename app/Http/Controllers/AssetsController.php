@@ -36,7 +36,11 @@ class AssetsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required'
+        ]);
+
+        return Asset::create($request->all());
     }
 
     /**
@@ -64,13 +68,20 @@ class AssetsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param Asset $asset
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Asset $asset)
     {
-        //
+        $asset->update([
+            'title' => $request->input('title'),
+            'place_of_discovery' => $request->input('place_of_discovery'),
+            'value' => $request->input('value'),
+            'updated_at' => false
+            ], ['timestamps' => false]);
+
+        return $asset;
     }
 
     /**
@@ -81,6 +92,6 @@ class AssetsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Asset::destroy($id);
     }
 }
