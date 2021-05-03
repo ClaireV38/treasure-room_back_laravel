@@ -22,6 +22,8 @@ class AssetsResource extends JsonResource
                 'place_of_discovery' => $this->place_of_discovery,
                 'value' => $this->value,
                 'photo' => $this->photo,
+                'category' => $this->category,
+                'owner' => $this->owner
             ]
         ];
     }
