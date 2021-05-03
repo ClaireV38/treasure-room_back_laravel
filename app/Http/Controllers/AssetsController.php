@@ -42,7 +42,8 @@ class AssetsController extends Controller
 
         return Asset::create([
             'title' => $request->input('title'),
-            'place_of_discovery' => $request->input('place_of_discovery')
+            'place_of_discovery' => $request->input('place_of_discovery'),
+            'deposit_date' => now()
         ]);
     }
 
