@@ -31,7 +31,7 @@ class AssetsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,13 +40,16 @@ class AssetsController extends Controller
             'title' => 'required'
         ]);
 
-        return Asset::create($request->all());
+        return Asset::create([
+            'title' => $request->input('title'),
+            'place_of_discovery' => $request->input('place_of_discovery')
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Asset $asset)
@@ -57,7 +60,7 @@ class AssetsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -79,7 +82,7 @@ class AssetsController extends Controller
             'place_of_discovery' => $request->input('place_of_discovery'),
             'value' => $request->input('value'),
             'updated_at' => false
-            ], ['timestamps' => false]);
+        ], ['timestamps' => false]);
 
         return $asset;
     }
@@ -87,7 +90,7 @@ class AssetsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
