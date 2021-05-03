@@ -18,7 +18,7 @@ class CreateAssetsTable extends Migration
             $table->unsignedInteger('category_id')->nullable();
             $table->unsignedInteger('owner_id')->nullable();
             $table->string('title');
-            $table->string('place_of-discovery');
+            $table->string('place_of_discovery');
             $table->decimal('value',10,2);
             $table->string('photo');
             $table->date('deposit_date');
