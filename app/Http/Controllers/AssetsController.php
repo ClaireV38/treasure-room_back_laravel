@@ -50,6 +50,17 @@ class AssetsController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return Asset::destroy($id);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param Asset $asset
@@ -90,14 +101,4 @@ class AssetsController extends Controller
         return $asset;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        return Asset::destroy($id);
-    }
 }
