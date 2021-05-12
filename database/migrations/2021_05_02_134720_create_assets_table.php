@@ -14,7 +14,7 @@ class CreateAssetsTable extends Migration
     public function up()
     {
         Schema::create('assets', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedInteger('category_id')->nullable();
             $table->unsignedInteger('owner_id')->nullable();
             $table->string('title');
@@ -24,12 +24,10 @@ class CreateAssetsTable extends Migration
             $table->date('deposit_date')->nullable();
             $table->foreign('category_id')
                 ->references('id')
-                ->on('categories')
-                ->onDelete('set null');
+                ->on('categories');
             $table->foreign('owner_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('set null');
+                ->on('users');
         });
     }
 

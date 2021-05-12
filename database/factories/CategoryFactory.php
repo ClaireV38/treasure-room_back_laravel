@@ -16,7 +16,7 @@ class CategoryFactory extends Factory
      */
     protected $model = Category::class;
 
-    const CATEGORIES = ['Pierres précieuses', 'Sculptures', 'Pièces d\'or'];
+    const CATEGORIES = ['Pierres précieuses', 'Sculptures', 'Pièces d\'or',''];
 
     /**
      * Define the model's default state.

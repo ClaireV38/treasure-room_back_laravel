@@ -15,11 +15,16 @@ use App\Http\Controllers\AssetsController;
 |
 */
 
+Route::group(['prefix' => 'v1'], function () {
+    Route::get('/assets', [AssetsController::class, 'index']);
+    Route::get('/assets/{asset}', [AssetsController::class, 'show']);
+});
+
+
 Route::middleware('auth:api')->prefix('v1')->group(function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::apiResource('/assets', AssetsController::class);
 });
 
 

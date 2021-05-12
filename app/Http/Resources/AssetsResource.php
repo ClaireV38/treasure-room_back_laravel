@@ -17,15 +17,13 @@ class AssetsResource extends JsonResource
         return [
             'id' => (string)$this->id,
             'type' => 'Assets',
-            'attributes' => [
-                'title' => $this->title,
-                'deposit_date' => $this->deposit_date,
-                'place_of_discovery' => $this->place_of_discovery,
-                'value' => $this->value,
-                'photo' => $this->photo,
-                'category' => $this->category,
-                'owner' => $this->owner
-            ]
+            'title' => $this->title,
+            'deposit_date' => $this->deposit_date,
+            'place_of_discovery' => $this->place_of_discovery,
+            'value' => $this->value,
+            'photo' => $this->photo,
+            'category' => $this->category,
+            'owner' => $this->owner
         ];
     }
 }

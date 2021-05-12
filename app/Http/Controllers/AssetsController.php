@@ -50,12 +50,12 @@ class AssetsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param Asset $asset
      * @return \Illuminate\Http\Response
      */
     public function show(Asset $asset)
     {
-        return new AssetsResource($asset);
+        return AssetsResource::collection(Asset::find($asset));
     }
 
     /**
