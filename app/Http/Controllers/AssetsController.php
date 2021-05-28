@@ -59,18 +59,24 @@ class AssetsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return int
      */
-    public function destroy($id)
+    public function destroy(int $id, Request $request)
     {
-        return Asset::destroy($id);
+        $user = $request->user();
+        if ($user->id == Asset::find($id)->owner->id) {
+            return Asset::destroy($id);
+        } else {
+            return response()->json(['error' => 'Only owner can delete a treasure'], 401);
+        }
     }
 
     /**
      * Display the specified resource.
      *
      * @param Asset $asset
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function show(Asset $asset)
     {
