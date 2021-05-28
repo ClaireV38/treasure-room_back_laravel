@@ -40,13 +40,19 @@ class AssetsController extends Controller
             'title' => 'required'
         ]);
 
-        return Asset::create([
+        $asset = Asset::create([
             'title' => $request->input('title'),
             'place_of_discovery' => $request->input('placeOfDiscovery'),
             'photo' => $request->input('photo'),
             'value' => $request->input('value'),
-            'deposit_date' => now()
+            'deposit_date' => now(),
         ]);
+
+        $asset->owner()->associate($request->user());
+
+        $asset->save();
+
+        return $asset;
     }
 
     /**
