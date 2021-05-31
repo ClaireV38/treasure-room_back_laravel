@@ -40,31 +40,43 @@ class AssetsController extends Controller
             'title' => 'required'
         ]);
 
-        return Asset::create([
+        $asset = Asset::create([
             'title' => $request->input('title'),
             'place_of_discovery' => $request->input('placeOfDiscovery'),
             'photo' => $request->input('photo'),
             'value' => $request->input('value'),
-            'deposit_date' => now()
+            'deposit_date' => now(),
         ]);
+
+        $asset->owner()->associate($request->user());
+
+        $asset->save();
+
+        return $asset;
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return int
      */
-    public function destroy($id)
+    public function destroy(int $id, Request $request)
     {
-        return Asset::destroy($id);
+        $user = $request->user();
+        if ($user->id == Asset::find($id)->owner->id) {
+            return Asset::destroy($id);
+        } else {
+            return response()->json(['error' => 'Only owner can delete a treasure'], 401);
+        }
     }
 
     /**
      * Display the specified resource.
      *
      * @param Asset $asset
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function show(Asset $asset)
     {
