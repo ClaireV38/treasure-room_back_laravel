@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Asset;
 use App\Http\Resources\AssetsResource;
+use Illuminate\Support\Facades\Gate;
 
 class AssetsController extends Controller
 {
@@ -65,10 +66,10 @@ class AssetsController extends Controller
     public function destroy(int $id, Request $request)
     {
         $user = $request->user();
-        if ($user->id == Asset::find($id)->owner->id) {
+        if (($user->id == Asset::find($id)->owner->id) || (Gate::allows('isAdmin'))) {
             return Asset::destroy($id);
         } else {
-            return response()->json(['error' => 'Only owner can delete a treasure'], 401);
+            return response()->json(['error' => 'Only owner or admin can delete a treasure'], 401);
         }
     }
 
