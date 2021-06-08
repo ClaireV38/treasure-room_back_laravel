@@ -29,6 +29,7 @@ Route::middleware('auth:api')->prefix('v1')->group(function() {
     Route::get('/assets/{asset}', [AssetsController::class, 'show']);
     Route::post('/assets', [AssetsController::class, 'store']);
     Route::delete('/assets/{id}', [AssetsController::class, 'destroy']);
+    Route::put('/assets/{id}', [AssetsController::class, 'update']);
 });
 
 

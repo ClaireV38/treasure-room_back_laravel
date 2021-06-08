@@ -98,18 +98,17 @@ class AssetsController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param int $id
      * @param \Illuminate\Http\Request $request
-     * @param Asset $asset
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Asset $asset)
+    public function update(int $id, Request $request)
     {
-        $asset->update([
-            'title' => $request->input('title'),
-            'place_of_discovery' => $request->input('place_of_discovery'),
-            'value' => $request->input('value'),
-            'updated_at' => false
-        ], ['timestamps' => false]);
+        $asset = Asset::findOrFail($id);
+        var_dump($asset);
+        $asset->update(
+            $request->query(),
+            ['timestamps' => false]);
 
         return $asset;
     }
