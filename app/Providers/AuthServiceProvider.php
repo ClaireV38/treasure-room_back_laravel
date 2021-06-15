@@ -46,7 +46,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('isOwner', function (User $user, Asset $asset) {
-            return $user->id === $asset->user_id;
+            return $user->id === $asset->owner_id;
         });
     }
 }

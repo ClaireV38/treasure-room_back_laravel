@@ -65,7 +65,7 @@ class AssetsController extends Controller
      */
     public function destroy(int $id, Request $request)
     {
-        $asset = Asset::findOrFail($id);
+        $asset = Asset::find($id);
         if ((Gate::allows('isOwner', $asset)) || (Gate::allows('isAdmin'))) {
             return Asset::destroy($id);
         } else {
@@ -104,8 +104,8 @@ class AssetsController extends Controller
      */
     public function update(int $id, Request $request)
     {
-        $user = $request->user();
-        if (($user->id == Asset::find($id)->owner->id) || (Gate::allows('isAdmin'))) {
+        $asset = Asset::find($id);
+        if ((Gate::allows('isOwner', $asset)) || (Gate::allows('isAdmin'))) {
             $asset = Asset::findOrFail($id);
             var_dump($asset);
             $asset->update(
@@ -113,7 +113,7 @@ class AssetsController extends Controller
                 ['timestamps' => false]);
             return $asset;
         } else {
-            return response()->json(['error' => 'Only owner or admin can delete a treasure'], 401);
+            return response()->json(['error' => 'Only owner or admin can update a treasure'], 401);
         }
     }
 
