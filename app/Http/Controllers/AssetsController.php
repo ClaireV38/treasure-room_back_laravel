@@ -104,13 +104,17 @@ class AssetsController extends Controller
      */
     public function update(int $id, Request $request)
     {
-        $asset = Asset::findOrFail($id);
-        var_dump($asset);
-        $asset->update(
-            $request->query(),
-            ['timestamps' => false]);
-
-        return $asset;
+        $user = $request->user();
+        if (($user->id == Asset::find($id)->owner->id) || (Gate::allows('isAdmin'))) {
+            $asset = Asset::findOrFail($id);
+            var_dump($asset);
+            $asset->update(
+                $request->query(),
+                ['timestamps' => false]);
+            return $asset;
+        } else {
+            return response()->json(['error' => 'Only owner or admin can delete a treasure'], 401);
+        }
     }
 
 }
