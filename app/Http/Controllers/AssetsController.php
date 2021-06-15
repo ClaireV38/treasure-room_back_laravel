@@ -65,8 +65,8 @@ class AssetsController extends Controller
      */
     public function destroy(int $id, Request $request)
     {
-        $user = $request->user();
-        if (($user->id == Asset::find($id)->owner->id) || (Gate::allows('isAdmin'))) {
+        $asset = Asset::findOrFail($id);
+        if ((Gate::allows('isOwner', $asset)) || (Gate::allows('isAdmin'))) {
             return Asset::destroy($id);
         } else {
             return response()->json(['error' => 'Only owner or admin can delete a treasure'], 401);
