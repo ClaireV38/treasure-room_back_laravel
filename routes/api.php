@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdventurersController;
+use App\Http\Controllers\CategoriesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AssetsController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\AssetsController;
 
 Route::group(['prefix' => 'v1'], function () {
     Route::get('/assets', [AssetsController::class, 'index']);
+    Route::get('/categories',[CategoriesController::class, 'index']);
     Route::get('/adventurers/{user}', [AdventurersController::class, 'belongings']);
 });
 
